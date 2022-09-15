@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  db:
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: root_password
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./:/docker-entrypoint-initdb.d:ro
+  php:
+    build: ./
+    ports:
+      - "8080:80"
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8081:8081
